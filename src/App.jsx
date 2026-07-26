@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Lenis from 'lenis';
 import { HeaderNav } from './components/HeaderNav';
+import { GridOverlay } from './components/GridOverlay';
 import { HeroChapter } from './components/HeroChapter';
 import { BrandStoryChapter } from './components/BrandStoryChapter';
 import { LogoSystemChapter } from './components/LogoSystemChapter';
@@ -20,6 +21,7 @@ export default function App() {
   const [activeChapter, setActiveChapter] = useState('01');
   const [lang, setLang] = useState('ar');
   const [audioPlaying, setAudioPlaying] = useState(false);
+  const [gridVisible, setGridVisible] = useState(false);
   const audioContextRef = useRef(null);
   const noiseNodeRef = useRef(null);
 
@@ -90,7 +92,7 @@ export default function App() {
         const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
         const data = buffer.getChannelData(0);
         for (let i = 0; i < bufferSize; i++) {
-          data[i] = (Math.random() * 2 - 1) * 0.015; // Soft subtle pink noise
+          data[i] = (Math.random() * 2 - 1) * 0.015;
         }
 
         const noise = ctx.createBufferSource();
@@ -133,6 +135,9 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#0E0D0D] text-[#EFEAE4] font-ar selection:bg-[#E64648] selection:text-[#EFEAE4]">
       
+      {/* 12-Column Architectural Grid Debugger Overlay */}
+      <GridOverlay visible={gridVisible} />
+
       {/* Header & Drawer Navigation */}
       <HeaderNav 
         activeChapter={activeChapter}
@@ -140,6 +145,8 @@ export default function App() {
         setLang={setLang}
         audioPlaying={audioPlaying}
         setAudioPlaying={setAudioPlaying}
+        gridVisible={gridVisible}
+        setGridVisible={setGridVisible}
       />
 
       {/* Main 13 Chapters Sequence */}

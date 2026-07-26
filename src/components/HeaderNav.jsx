@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Volume2, VolumeX, Globe } from './Icons';
+import { Menu, X, Volume2, VolumeX, Globe, LayoutGrid } from './Icons';
 import { brandInfo } from '../data/brandData';
 
-export const HeaderNav = ({ activeChapter, lang, setLang, audioPlaying, setAudioPlaying }) => {
+export const HeaderNav = ({ 
+  activeChapter, 
+  lang, 
+  setLang, 
+  audioPlaying, 
+  setAudioPlaying,
+  gridVisible,
+  setGridVisible
+}) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -37,7 +45,7 @@ export const HeaderNav = ({ activeChapter, lang, setLang, audioPlaying, setAudio
           
           {/* Brand Mark Title */}
           <div className="flex items-center gap-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="w-8 h-8 rounded-full bg-[#E64648] flex items-center justify-center font-bold text-xs text-[#EFEAE4]">
+            <div className="w-8 h-8 rounded-full bg-[#E64648] flex items-center justify-center font-bold text-xs text-[#EFEAE4] shadow-lg shadow-[#E64648]/30">
               ع
             </div>
             <div>
@@ -45,14 +53,14 @@ export const HeaderNav = ({ activeChapter, lang, setLang, audioPlaying, setAudio
                 {lang === 'ar' ? brandInfo.nameAr : brandInfo.nameEn}
               </span>
               <span className="text-[10px] tracking-[0.2em] text-[#EFEAE4]/50 uppercase font-en block">
-                Official Brand Identity
+                Luxury Brand Presentation
               </span>
             </div>
           </div>
 
           {/* Active Chapter Indicator */}
           <div className="hidden md:flex items-center gap-3 bg-[#1A1615] px-4 py-2 rounded-full border border-[#EFEAE4]/10">
-            <span className="text-xs font-en text-[#E64648] font-semibold">CHAPTER</span>
+            <span className="text-xs font-en text-[#E64648] font-bold">CHAPTER</span>
             <span className="text-sm font-en font-bold text-[#EFEAE4]">{activeChapter} / 13</span>
             <span className="text-xs text-[#EFEAE4]/60 font-ar border-r dark:border-l border-[#EFEAE4]/20 pr-3 dark:pl-3">
               {brandInfo.chapters.find(c => c.id === activeChapter)?.[lang === 'ar' ? 'titleAr' : 'titleEn']}
@@ -60,8 +68,18 @@ export const HeaderNav = ({ activeChapter, lang, setLang, audioPlaying, setAudio
           </div>
 
           {/* Controls */}
-          <div className="flex items-center gap-3 md:gap-4">
+          <div className="flex items-center gap-2 md:gap-3">
             
+            {/* Grid Debugger Toggle */}
+            <button 
+              onClick={() => setGridVisible(!gridVisible)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-en transition-all duration-300 ${gridVisible ? 'bg-[#E64648] border-[#E64648] text-[#EFEAE4]' : 'bg-[#1A1615]/80 border-[#EFEAE4]/15 text-[#EFEAE4]/70 hover:text-[#EFEAE4]'}`}
+              title="Toggle 12-Column Grid Debugger"
+            >
+              <LayoutGrid className="w-3.5 h-3.5" />
+              <span className="hidden lg:inline">{gridVisible ? 'GRID: ON' : 'GRID'}</span>
+            </button>
+
             {/* Language Switcher */}
             <button 
               onClick={toggleLanguage}
@@ -76,7 +94,7 @@ export const HeaderNav = ({ activeChapter, lang, setLang, audioPlaying, setAudio
             <button 
               onClick={() => setAudioPlaying(!audioPlaying)}
               className={`p-2 rounded-full border transition-all duration-300 ${audioPlaying ? 'bg-[#E64648] border-[#E64648] text-[#EFEAE4]' : 'bg-[#1A1615]/80 border-[#EFEAE4]/15 text-[#EFEAE4]/70 hover:text-[#EFEAE4]'}`}
-              title="Toggle Culinary Atmosphere"
+              title="Toggle Culinary Atmosphere Sound"
             >
               {audioPlaying ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
             </button>
