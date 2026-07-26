@@ -1,23 +1,23 @@
 /* ==========================================================================
-   AL ARAB (شاورما العراب) — LUXURY EDITORIAL BRAND MONOGRAPH
-   High-Fashion / Awwwards Site of the Year Architecture (Aesop, Burberry, Porsche, Apple)
+   AL ARAB (شاورما العراب) — HIGH-FASHION EDITORIAL ART DIRECTION
+   Awwwards Site of the Year / Aesop / Porsche / Apple / Burberry Level
    ========================================================================== */
 
 :root {
   /* Official Brand Colors */
   --color-burgundy: #E64648;
+  --color-burgundy-dark: #A82426;
   --color-cream: #EFEAE4;
   --color-charcoal: #0E0D0D;
-  --color-walnut: #1A1615;
-  --color-copper: #8C3B30;
+  --color-walnut: #141212;
   --color-brass: #C5A059;
 
-  /* Typography */
+  /* Typography Families */
   --font-arabic: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-english: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  /* Easing */
-  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+  /* High-Fashion Easing Curves */
+  --ease-editorial: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 /* Reset & Baseline */
@@ -40,7 +40,7 @@ body {
   font-family: var(--font-arabic);
   background-color: var(--color-charcoal);
   color: var(--color-cream);
-  line-height: 1.5;
+  line-height: 1.4;
   overflow-x: hidden;
 }
 
@@ -49,34 +49,35 @@ body {
   color: var(--color-cream);
 }
 
-/* Editorial Typography */
-.text-display-giant {
-  font-size: clamp(4.5rem, 15vw, 22rem);
+/* Massive Display Typography Scales */
+.text-display-monolith {
+  font-size: clamp(5rem, 22vw, 32rem);
   font-weight: 900;
-  line-height: 0.85;
-  letter-spacing: -0.04em;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
   text-transform: uppercase;
 }
 
-.text-title-huge {
-  font-size: clamp(3rem, 8vw, 10rem);
+.text-title-monograph {
+  font-size: clamp(3.5rem, 10vw, 14rem);
   font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
 }
 
 .text-editorial-quote {
-  font-size: clamp(2rem, 4.5vw, 5rem);
+  font-size: clamp(2.25rem, 5vw, 6rem);
   font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
-.text-editorial-sub {
-  font-size: clamp(1.1rem, 2vw, 2rem);
-  font-weight: 400;
-  color: rgba(239, 234, 228, 0.7);
-  line-height: 1.6;
+.text-meta-label {
+  font-family: var(--font-english);
+  font-size: clamp(10px, 0.9vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
 }
 
 .font-en {
@@ -87,8 +88,8 @@ body {
   font-family: var(--font-arabic);
 }
 
-/* Fullscreen Immersive Stage Section */
-.scene-stage {
+/* Full-Bleed Borderless Scene Stage */
+.scene-stage-editorial {
   min-height: 100vh;
   width: 100vw;
   position: relative;
@@ -96,24 +97,39 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: clamp(2rem, 6vw, 6rem);
+  padding: clamp(2.5rem, 7vw, 8rem);
+  background-color: var(--color-charcoal);
 }
 
-/* Fine Line Accents */
-.hairline-divider {
+/* Hairline Separators (No Boxes, Only Razor Lines) */
+.hairline-border-b {
   border-bottom: 1px solid rgba(239, 234, 228, 0.12);
+}
+
+.hairline-border-t {
+  border-top: 1px solid rgba(239, 234, 228, 0.12);
+}
+
+/* Image Scale & Duotone Filter Hover Effects */
+.img-editorial {
+  filter: brightness(80%) contrast(135%) saturate(110%);
+  transition: transform 1.2s var(--ease-editorial), filter 1.2s var(--ease-editorial);
+}
+
+.img-editorial:hover {
+  transform: scale(1.04);
+  filter: brightness(90%) contrast(140%) saturate(120%);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-charcoal);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(239, 234, 228, 0.25);
-  border-radius: 3px;
+  background: rgba(239, 234, 228, 0.3);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-burgundy);

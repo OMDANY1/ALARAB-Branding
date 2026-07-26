@@ -2,41 +2,59 @@ import React from 'react';
 
 export const PackagingChapter = ({ lang }) => {
   return (
-    <section id="scene-09" className="scene-stage bg-[#1A1615]">
+    <section id="scene-09" className="scene-stage-editorial bg-[#141212] overflow-hidden">
       
       {/* Top Scene Meta */}
-      <div className="flex justify-between items-center z-10 w-full border-b border-[#EFEAE4]/10 pb-6">
-        <span className="text-xs font-en tracking-[0.3em] text-[#E64648] uppercase font-bold">
+      <div className="flex justify-between items-center z-10 w-full hairline-border-b pb-6">
+        <span className="text-meta-label text-[#E64648]">
           SCENE 09 / THE UNBOXING
         </span>
-        <span className="text-xs font-en text-[#EFEAE4]/40 uppercase tracking-widest">
+        <span className="text-meta-label text-[#EFEAE4]/40">
           SUSTAINABLE THERMAL PACKAGING
         </span>
       </div>
 
-      {/* Center Product Visual Monograph */}
-      <div className="my-auto z-10 w-full flex flex-col items-center text-center max-w-5xl mx-auto py-12">
+      {/* Center Monograph: Floating Local Assets */}
+      <div className="my-auto z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-12">
         
-        {/* Large Product Foil Mockup Visual */}
-        <div className="w-80 sm:w-96 md:w-[32rem] h-72 rounded-3xl bg-[#0E0D0D] border border-[#E64648]/40 p-12 flex flex-col items-center justify-center shadow-2xl mb-12 hover:border-[#E64648] transition-all duration-700">
-          <div className="w-24 h-24 rounded-full bg-[#E64648] text-[#EFEAE4] flex items-center justify-center font-bold text-4xl font-ar shadow-2xl mb-4">
-            ع
+        {/* Left: Floating Brand Packaging Asset */}
+        <div className="lg:col-span-6 flex justify-center items-center relative">
+          <div className="w-80 sm:w-[28rem] h-auto relative z-10 transition-transform duration-1000 hover:scale-105">
+            <img 
+              src="/images/Bag.png" 
+              alt="AL ARAB Carrying Bag" 
+              className="w-full h-auto object-contain filter drop-shadow-[0_40px_80px_rgba(0,0,0,0.8)]"
+            />
           </div>
-          <span className="text-xs font-en text-[#C5A059] font-bold tracking-widest uppercase">
-            THERMAL GREASEPROOF FOIL & KRAFT BAGS
-          </span>
+
+          <div className="w-64 sm:w-80 h-auto absolute bottom-0 right-0 z-20 transform translate-x-8 translate-y-8 transition-transform duration-1000 hover:scale-105">
+            <img 
+              src="/images/wrap.png" 
+              alt="AL ARAB Thermal Wrap" 
+              className="w-full h-auto object-contain filter drop-shadow-[0_30px_60px_rgba(230,70,72,0.4)]"
+            />
+          </div>
         </div>
 
-        <h2 className="text-title-huge text-[#EFEAE4] font-ar leading-none mb-4">
-          {lang === 'ar' ? 'تغليف فاخر يحفظ الحرارة والقوام' : 'Artisanal Thermal Packaging Experience'}
-        </h2>
+        {/* Right: Oversized Editorial Statement */}
+        <div className="lg:col-span-6 flex flex-col justify-center pr-4">
+          <span className="text-meta-label text-[#C5A059] block mb-4">ARTISANAL DELIVERY EXPERIENCE</span>
+          
+          <h2 className="text-title-monograph text-[#EFEAE4] font-ar leading-tight mb-8">
+            {lang === 'ar' ? 'تغليف يحفظ الحرارة والقوام' : 'Thermal Preservation & Artisanal Unboxing'}
+          </h2>
+
+          <p className="text-editorial-quote text-[#EFEAE4]/70 font-ar font-normal leading-relaxed">
+            {lang === 'ar' ? 'مواد تغليف مستدامة ومطفية تضمن حفظ الحرارة بنسبة 100% وتحافظ على قوام الخبز المقرمش.' : 'Greaseproof matte foils and kraft carrying bags engineered for heat retention and crisp bread texture.'}
+          </p>
+        </div>
 
       </div>
 
       {/* Bottom Scene Footer */}
-      <div className="flex justify-between items-center z-10 w-full border-t border-[#EFEAE4]/10 pt-6 text-xs font-en text-[#EFEAE4]/40 uppercase tracking-widest">
-        <span>100% SUSTAINABLE & RECYCLABLE</span>
-        <span>SAUDI ARABIA DELIVERY STANDARDS</span>
+      <div className="flex justify-between items-center z-10 w-full hairline-border-t pt-6 text-meta-label text-[#EFEAE4]/40">
+        <span>100% RECYCLABLE KRAFT & FOILS</span>
+        <span>KINGDOM OF SAUDI ARABIA</span>
       </div>
 
     </section>
