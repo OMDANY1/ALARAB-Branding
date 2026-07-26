@@ -272,3 +272,53 @@ export const Sparkles = ({ className }) => (
     <path d="M17 19h4" />
   </IconWrapper>
 );
+
+export const Info = ({ className }) => (
+  <IconWrapper className={className}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 16v-4" />
+    <path d="M12 8h.01" />
+  </IconWrapper>
+);
+
+export const Palette = ({ className }) => (
+  <IconWrapper className={className}>
+    <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+    <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+    <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+    <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.92 0 1.7-.72 1.7-1.65 0-.43-.17-.83-.44-1.14-.28-.31-.43-.72-.43-1.18 0-.93.77-1.68 1.7-1.68H17c2.76 0 5-2.24 5-5 0-4.97-4.48-9-10-9z" />
+  </IconWrapper>
+);
+
+export const Type = ({ className }) => (
+  <IconWrapper className={className}>
+    <polyline points="4 7 4 4 20 4 20 7" />
+    <line x1="9" x2="15" y1="20" y2="20" />
+    <line x1="12" x2="12" y1="4" y2="20" />
+  </IconWrapper>
+);
+
+export const AlignLeft = ({ className }) => (
+  <IconWrapper className={className}>
+    <line x1="21" x2="3" y1="6" y2="6" />
+    <line x1="15" x2="3" y1="12" y2="12" />
+    <line x1="17" x2="3" y1="18" y2="18" />
+  </IconWrapper>
+);
+
+export const AlignCenter = ({ className }) => (
+  <IconWrapper className={className}>
+    <line x1="21" x2="3" y1="6" y2="6" />
+    <line x1="17" x2="7" y1="12" y2="12" />
+    <line x1="19" x2="5" y1="18" y2="18" />
+  </IconWrapper>
+);
+
+export const AlignRight = ({ className }) => (
+  <IconWrapper className={className}>
+    <line x1="21" x2="3" y1="6" y2="6" />
+    <line x1="21" x2="9" y1="12" y2="12" />
+    <line x1="21" x2="7" y1="18" y2="18" />
+  </IconWrapper>
+);
