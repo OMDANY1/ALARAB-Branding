@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Lenis from 'lenis';
+import React, { useState, useEffect } from 'react';
 import { HeaderNav } from './components/HeaderNav';
-import { GridOverlay } from './components/GridOverlay';
 import { HeroChapter } from './components/HeroChapter';
 import { BrandStoryChapter } from './components/BrandStoryChapter';
 import { LogoSystemChapter } from './components/LogoSystemChapter';
@@ -15,142 +13,54 @@ import { RestaurantExperienceChapter } from './components/RestaurantExperienceCh
 import { SocialMediaChapter } from './components/SocialMediaChapter';
 import { BrandApplicationsChapter } from './components/BrandApplicationsChapter';
 import { ClosingChapter } from './components/ClosingChapter';
-import { brandInfo } from './data/brandData';
+import { GridOverlay } from './components/GridOverlay';
 
-export default function App() {
-  const [activeChapter, setActiveChapter] = useState('01');
+export function App() {
   const [lang, setLang] = useState('ar');
+  const [activeChapter, setActiveChapter] = useState(1);
   const [audioPlaying, setAudioPlaying] = useState(false);
-  const [gridVisible, setGridVisible] = useState(false);
-  const audioContextRef = useRef(null);
-  const noiseNodeRef = useRef(null);
+  const [showGrid, setShowGrid] = useState(false);
 
-  // Initialize Lenis Smooth Scroll
+  // Track active scene on scroll
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.5,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    return () => lenis.destroy();
-  }, []);
-
-  // Intersection Observer for Active Chapter Tracking
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '-30% 0px -30% 0px',
-      threshold: 0.1,
-    };
-
-    const handleIntersect = (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const chapterId = entry.target.id.replace('chapter-', '');
-          if (chapterId) {
-            setActiveChapter(chapterId);
-          }
-        }
+    const handleScroll = () => {
+      const sceneElements = Array.from({ length: 13 }, (_, i) => {
+        const id = String(i + 1).padStart(2, '0');
+        return document.getElementById(`scene-${id}`);
       });
+
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+      for (let i = sceneElements.length - 1; i >= 0; i--) {
+        const el = sceneElements[i];
+        if (el && el.offsetTop <= scrollPosition) {
+          setActiveChapter(i + 1);
+          break;
+        }
+      }
     };
 
-    const observer = new IntersectionObserver(handleIntersect, observerOptions);
-    brandInfo.chapters.forEach((ch) => {
-      const el = document.getElementById(`chapter-${ch.id}`);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Web Audio Sizzle/Ember Sound Synthesizer Simulation
-  useEffect(() => {
-    if (audioPlaying) {
-      try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!audioContextRef.current) {
-          audioContextRef.current = new AudioCtx();
-        }
-        const ctx = audioContextRef.current;
-        if (ctx.state === 'suspended') {
-          ctx.resume();
-        }
-
-        // Generate gentle warm noise (emulating crackling grill embers)
-        const bufferSize = ctx.sampleRate * 2;
-        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = (Math.random() * 2 - 1) * 0.015;
-        }
-
-        const noise = ctx.createBufferSource();
-        noise.buffer = buffer;
-        noise.loop = true;
-
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(800, ctx.currentTime);
-
-        const gain = ctx.createGain();
-        gain.gain.setValueAtTime(0.08, ctx.currentTime);
-
-        noise.connect(filter);
-        filter.connect(gain);
-        gain.connect(ctx.destination);
-
-        noise.start();
-        noiseNodeRef.current = noise;
-      } catch (err) {
-        console.warn('Audio Context init:', err);
-      }
-    } else {
-      if (noiseNodeRef.current) {
-        try {
-          noiseNodeRef.current.stop();
-          noiseNodeRef.current.disconnect();
-        } catch (e) {}
-        noiseNodeRef.current = null;
-      }
-    }
-
-    return () => {
-      if (noiseNodeRef.current) {
-        try { noiseNodeRef.current.stop(); } catch (e) {}
-      }
-    };
-  }, [audioPlaying]);
 
   return (
-    <div className="min-h-screen bg-[#0E0D0D] text-[#EFEAE4] font-ar selection:bg-[#E64648] selection:text-[#EFEAE4]">
+    <div className="min-h-screen bg-[#0E0D0D] text-[#EFEAE4] relative selection:bg-[#E64648] selection:text-[#EFEAE4]">
       
-      {/* 12-Column Architectural Grid Debugger Overlay */}
-      <GridOverlay visible={gridVisible} />
+      {/* 12-Column Architectural Grid Debugger */}
+      <GridOverlay visible={showGrid} />
 
-      {/* Header & Drawer Navigation */}
+      {/* Header Navigation */}
       <HeaderNav 
-        activeChapter={activeChapter}
-        lang={lang}
-        setLang={setLang}
-        audioPlaying={audioPlaying}
+        activeChapter={activeChapter} 
+        lang={lang} 
+        setLang={setLang} 
+        audioPlaying={audioPlaying} 
         setAudioPlaying={setAudioPlaying}
-        gridVisible={gridVisible}
-        setGridVisible={setGridVisible}
       />
 
-      {/* Main 13 Chapters Sequence */}
-      <main className="w-full">
+      {/* 13 Immersive Editorial Scenes */}
+      <main className="relative">
         <HeroChapter lang={lang} />
         <BrandStoryChapter lang={lang} />
         <LogoSystemChapter lang={lang} />
@@ -169,3 +79,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;
